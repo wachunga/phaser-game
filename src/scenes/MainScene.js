@@ -1,13 +1,11 @@
 import { Scene } from "phaser";
 import { Player } from "../gameobjects/Player";
-import { BlueEnemy } from "../gameobjects/BlueEnemy";
 import { Asteroid } from "../gameobjects/Asteroid";
 
 const GAME_LENGTH = 30;
 
 export class MainScene extends Scene {
     player = null;
-    enemy_blue = null;
     asteroids = null;
     cursors = null;
 
@@ -42,9 +40,6 @@ export class MainScene extends Scene {
         });
         this.physics.add.existing(this.asteroids);
 
-        // Enemy
-        this.enemy_blue = new BlueEnemy(this);
-
         // Cursor keys
         this.cursors = this.input.keyboard.createCursorKeys();
         this.cursors.space.on("down", () => {
@@ -64,7 +59,7 @@ export class MainScene extends Scene {
         // This event comes from MenuScene
         this.game.events.on("asteroid-collision", () => {
             this.cameras.main.shake(100, 0.01);
-            // Flash the color white for 300ms
+            // Flash the color red for 300ms
             this.cameras.main.flash(300, 255, 10, 10, false);
             this.lives -= 1;
             this.scene.get("HudScene").update_lives(this.lives);
@@ -88,9 +83,7 @@ export class MainScene extends Scene {
                         this.game.events.removeListener("asteroid-collisions");
                         // It is necessary to stop the scenes launched in parallel.
                         this.scene.stop("HudScene");
-                        this.scene.start("GameOverScene", {
-                            points: this.points,
-                        });
+                        this.scene.start("GameOverScene", {});
                     } else {
                         this.game_over_timeout--;
                         this.scene

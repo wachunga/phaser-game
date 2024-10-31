@@ -9,7 +9,6 @@ export class Preloader extends Phaser.Scene {
         // Load all the assets
         this.load.setPath("assets");
         this.load.image("logo", "logo.png");
-        this.load.image("floor");
         this.load.image("background", "background.png");
 
         this.load.image("player", "player/turret.png");
@@ -19,18 +18,7 @@ export class Preloader extends Phaser.Scene {
         this.load.image("flares");
 
         // Enemies
-        this.load.image("asteroid", "enemies/enemy-rock.png");
-
-        this.load.atlas(
-            "enemy-blue",
-            "enemies/enemy-blue/enemy-blue.png",
-            "enemies/enemy-blue/enemy-blue_atlas.json"
-        );
-        this.load.animation(
-            "enemy-blue-anim",
-            "enemies/enemy-blue/enemy-blue_anim.json"
-        );
-        this.load.image("enemy-bullet", "enemies/enemy-bullet.png");
+        this.load.image("asteroid", "enemies/asteroid.png");
 
         // Fonts
         this.load.bitmapFont(

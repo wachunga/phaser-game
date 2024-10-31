@@ -1,20 +1,17 @@
 import { Scene } from "phaser";
 
 export class GameOverScene extends Scene {
-    end_points = 0;
     constructor() {
         super("GameOverScene");
     }
 
     init(data) {
         this.cameras.main.fadeIn(1000, 0, 0, 0);
-        this.end_points = data.points || 0;
     }
 
     create() {
         // Backgrounds
         this.add.image(0, 0, "background").setOrigin(0, 0);
-        this.add.image(0, this.scale.height, "floor").setOrigin(0, 1);
 
         // Rectangles to show the text
         // Background rectangles
@@ -50,15 +47,15 @@ export class GameOverScene extends Scene {
         gameover_text.setOrigin(0.5, 0.5);
         gameover_text.postFX.addShine();
 
-        this.add
-            .bitmapText(
-                this.scale.width / 2,
-                this.scale.height / 2 + 85,
-                "pixelfont",
-                `YOUR POINTS: ${this.end_points}`,
-                24
-            )
-            .setOrigin(0.5, 0.5);
+        // this.add
+        //     .bitmapText(
+        //         this.scale.width / 2,
+        //         this.scale.height / 2 + 85,
+        //         "pixelfont",
+        //         `YOUR POINTS: ${this.end_points}`,
+        //         24
+        //     )
+        //     .setOrigin(0.5, 0.5);
 
         this.add
             .bitmapText(
