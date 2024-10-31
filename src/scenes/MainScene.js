@@ -2,15 +2,13 @@ import { Scene } from "phaser";
 import { Player } from "../gameobjects/Player";
 import { Asteroid } from "../gameobjects/Asteroid";
 
-const GAME_LENGTH = 30;
+const GAME_LENGTH_SECONDS = 30;
 
 export class MainScene extends Scene {
     player = null;
     asteroids = null;
     cursors = null;
-
-    points = 0;
-    game_over_timeout = GAME_LENGTH;
+    game_over_timeout = GAME_LENGTH_SECONDS;
 
     constructor() {
         super("MainScene");
@@ -22,7 +20,7 @@ export class MainScene extends Scene {
 
         // Reset
         this.lives = 3;
-        this.game_over_timeout = GAME_LENGTH;
+        this.game_over_timeout = GAME_LENGTH_SECONDS;
     }
 
     create() {
@@ -40,7 +38,6 @@ export class MainScene extends Scene {
         });
         this.physics.add.existing(this.asteroids);
 
-        // Cursor keys
         this.cursors = this.input.keyboard.createCursorKeys();
         this.cursors.space.on("down", () => {
             this.player.fire();
@@ -56,15 +53,20 @@ export class MainScene extends Scene {
             }
         );
 
-        // This event comes from MenuScene
+        // This event comes from Asteroid
         this.game.events.on("asteroid-collision", () => {
             this.cameras.main.shake(100, 0.01);
             // Flash the color red for 300ms
             this.cameras.main.flash(300, 255, 10, 10, false);
             this.lives -= 1;
             this.scene.get("HudScene").update_lives(this.lives);
+
+            if (this.lives <= 0) {
+                this.gameOver();
+            }
         });
 
+        // This event comes from MenuScene
         this.game.events.on("start-game", () => {
             this.scene.stop("MenuScene");
             this.scene.launch("HudScene", {
@@ -72,18 +74,12 @@ export class MainScene extends Scene {
             });
             this.player.start();
 
-            // Game Over timeout
             this.time.addEvent({
                 delay: 1000,
                 loop: true,
                 callback: () => {
-                    if (this.game_over_timeout === 0 || this.lives <= 0) {
-                        // You need remove the event listener to avoid duplicate events.
-                        this.game.events.removeListener("start-game");
-                        this.game.events.removeListener("asteroid-collisions");
-                        // It is necessary to stop the scenes launched in parallel.
-                        this.scene.stop("HudScene");
-                        this.scene.start("GameOverScene", {});
+                    if (this.game_over_timeout === 0) {
+                        this.gameOver();
                     } else {
                         this.game_over_timeout--;
                         this.scene
@@ -99,6 +95,15 @@ export class MainScene extends Scene {
                 },
             });
         });
+    }
+
+    gameOver() {
+        // remove the event listener to avoid duplicate events
+        this.game.events.removeListener("start-game");
+        this.game.events.removeListener("asteroid-collision");
+        // It is necessary to stop the scenes launched in parallel
+        this.scene.stop("HudScene");
+        this.scene.start("GameOverScene", {});
     }
 
     update() {

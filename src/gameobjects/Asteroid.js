@@ -29,7 +29,6 @@ export class Asteroid extends GameObjects.Image {
     destroyAsteroid() {
         this.setActive(false);
         this.setVisible(false);
-        console.log("destroy asteroid");
         this.destroy();
     }
 
@@ -37,7 +36,7 @@ export class Asteroid extends GameObjects.Image {
     update(time, delta) {
         // if (!this.active) return;
 
-        console.log("moving asteroids", this.active);
+        // console.log("moving asteroids", this.active);
         this.x += this.end_direction.x * this.speed * delta;
         this.y += this.end_direction.y * this.speed * delta;
 

@@ -6,7 +6,7 @@ import { MainScene } from "./scenes/MainScene";
 import { MenuScene } from "./scenes/MenuScene";
 
 // More information about config: https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig
-const config = {
+new Game({
     type: Phaser.AUTO,
     parent: "phaser-container",
     width: 960,
@@ -26,15 +26,8 @@ const config = {
         default: "arcade",
         arcade: {
             gravity: { y: 0 },
+            // debug: true,
         },
     },
-    scene: [
-        Preloader,
-        MainScene,
-        MenuScene,
-        HudScene,
-        GameOverScene,
-    ],
-};
-
-new Game(config);
+    scene: [Preloader, MainScene, MenuScene, HudScene, GameOverScene],
+});
