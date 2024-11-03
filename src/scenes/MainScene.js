@@ -62,7 +62,7 @@ export class MainScene extends Scene {
             this.scene.get("HudScene").update_lives(this.lives);
 
             if (this.lives <= 0) {
-                this.gameOver();
+                this.gameOver(false);
             }
         });
 
@@ -79,7 +79,7 @@ export class MainScene extends Scene {
                 loop: true,
                 callback: () => {
                     if (this.game_over_timeout === 0) {
-                        this.gameOver();
+                        this.gameOver(true);
                     } else {
                         this.game_over_timeout--;
                         this.scene
@@ -97,13 +97,13 @@ export class MainScene extends Scene {
         });
     }
 
-    gameOver() {
+    gameOver(winner) {
         // remove the event listener to avoid duplicate events
         this.game.events.removeListener("start-game");
         this.game.events.removeListener("asteroid-collision");
         // It is necessary to stop the scenes launched in parallel
         this.scene.stop("HudScene");
-        this.scene.start("GameOverScene", {});
+        this.scene.start("GameOverScene", { winner });
     }
 
     update() {
