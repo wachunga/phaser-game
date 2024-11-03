@@ -20,6 +20,10 @@ export class Preloader extends Phaser.Scene {
         // Enemies
         this.load.image("asteroid", "enemies/asteroid.png");
 
+        // sounds
+        this.load.audio("fire", "sounds/shoot.wav");
+        this.load.audio("explode", "sounds/impact.wav");
+
         // Fonts
         this.load.bitmapFont(
             "pixelfont",

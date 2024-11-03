@@ -18,6 +18,7 @@ export class Bullet extends GameObjects.Image {
     fire(x, y, targetX = 1, targetY = 0, bullet_texture = "bullet") {
         // Change bullet change texture
         this.setTexture(bullet_texture);
+        this.scene.sound.play("fire");
 
         this.setPosition(x, y);
         this.setActive(true);

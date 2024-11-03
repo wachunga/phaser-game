@@ -27,6 +27,7 @@ export class Asteroid extends GameObjects.Image {
     }
 
     destroyAsteroid() {
+        this.scene.sound.play("explode");
         this.setActive(false);
         this.setVisible(false);
         this.destroy();
@@ -43,6 +44,7 @@ export class Asteroid extends GameObjects.Image {
         // check if asteroid crashed into player's base
         if (this.x <= 30) {
             this.scene.game.events.emit("asteroid-collision");
+            this.scene.sound.play("explode");
             this.setActive(false);
             this.setVisible(false);
             this.destroy();
