@@ -10,28 +10,6 @@ export class MenuScene extends Scene {
     }
 
     create() {
-        // Background rectangles
-        this.add
-            .rectangle(
-                0,
-                this.scale.height / 2,
-                this.scale.width,
-                120,
-                0xffffff
-            )
-            .setAlpha(0.8)
-            .setOrigin(0, 0.5);
-        this.add
-            .rectangle(
-                0,
-                this.scale.height / 2 + 85,
-                this.scale.width,
-                50,
-                0x000000
-            )
-            .setAlpha(0.8)
-            .setOrigin(0, 0.5);
-
         // Logo
         const logo_game = this.add.bitmapText(
             this.scale.width / 2,
@@ -44,10 +22,26 @@ export class MenuScene extends Scene {
         logo_game.setOrigin(0.5, 0.5);
         logo_game.postFX.addShine();
 
+        this.add
+            .image(this.scale.width / 2, this.scale.height / 2 + 100, "title")
+            .setOrigin(0.5, 0.5)
+            .postFX.addShine();
+
+        this.add
+            .bitmapText(
+                this.scale.width / 2,
+                this.scale.height / 2 + 100,
+                "pixelfont",
+                "BOOSTERS OFFLINE\nINCOMING ASTEROIDS\nACTIVATE DEFENSES",
+                30,
+                1
+            )
+            .setOrigin(0.5, 0.5);
+
         const start_msg = this.add
             .bitmapText(
                 this.scale.width / 2,
-                this.scale.height / 2 + 85,
+                this.scale.height / 2 + 200,
                 "pixelfont",
                 "CLICK TO BEGIN",
                 24

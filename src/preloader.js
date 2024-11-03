@@ -10,6 +10,7 @@ export class Preloader extends Phaser.Scene {
         this.load.setPath("assets");
         this.load.image("logo", "logo.png");
         this.load.image("background", "background.png");
+        this.load.image("title", "player/Title-Phaserwithout.png");
 
         this.load.image("player", "player/turret.png");
 
