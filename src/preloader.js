@@ -8,7 +8,6 @@ export class Preloader extends Phaser.Scene {
     preload() {
         // Load all the assets
         this.load.setPath("assets");
-        this.load.image("logo", "logo.png");
         this.load.image("background", "background.png");
         this.load.image("title", "player/Title-Phaserwithout.png");
 
@@ -21,7 +20,7 @@ export class Preloader extends Phaser.Scene {
         // Enemies
         this.load.image("asteroid", "enemies/asteroid.png");
 
-        // sounds
+        // Sounds
         this.load.audio("fire", "sounds/shoot.wav");
         this.load.audio("explode", "sounds/impact.wav");
 
@@ -31,29 +30,13 @@ export class Preloader extends Phaser.Scene {
             "fonts/pixelfont.png",
             "fonts/pixelfont.xml"
         );
-        this.load.image("knighthawks", "fonts/knight3.png");
 
-        // Event to update the loading bar
         this.load.on("progress", (progress) => {
             console.log("Loading: " + Math.round(progress * 100) + "%");
         });
     }
 
     create() {
-        // Create bitmap font and load it in cache
-        const config = {
-            image: "knighthawks",
-            width: 31,
-            height: 25,
-            chars: Phaser.GameObjects.RetroFont.TEXT_SET6,
-            charsPerRow: 10,
-            spacing: { x: 1, y: 1 },
-        };
-        this.cache.bitmapFont.add(
-            "knighthawks",
-            Phaser.GameObjects.RetroFont.Parse(this, config)
-        );
-
         // When all the assets are loaded go to the next scene
         this.scene.start("MainScene");
     }

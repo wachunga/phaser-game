@@ -11,17 +11,6 @@ export class MenuScene extends Scene {
 
     create() {
         // Logo
-        const logo_game = this.add.bitmapText(
-            this.scale.width / 2,
-            this.scale.height / 2,
-            "knighthawks",
-            "PHASER",
-            52,
-            1
-        );
-        logo_game.setOrigin(0.5, 0.5);
-        logo_game.postFX.addShine();
-
         this.add
             .image(this.scale.width / 2, this.scale.height / 2 + 100, "title")
             .setOrigin(0.5, 0.5)
